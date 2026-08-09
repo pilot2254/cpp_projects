@@ -20,7 +20,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <MASM Include="first.asm">
+    <MASM Include="piss.asm">
       <Filter>Source Files</Filter>
     </MASM>
   </ItemGroup>
