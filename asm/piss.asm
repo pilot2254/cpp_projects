@@ -9,16 +9,11 @@ asm_add PROC
 
     ; when this function is called rcx already holds the 1st argument (5)
     ; and rdx already holds the 2nd argument (10)
-    ; just a fixed rule the cpu/compiler follows (not something we write)   
+    ; just a fixed rule the cpu/compiler follows
 
-    mov rax, rcx    ; copy the 1st argument (5) into rax
-                    ; we need it in rax because thats the register well do the addition in
-
-    add rax, rdx    ; rax = rax + rdx, so rax = 15
-                    ; rax now holds the result
-
-    ret             ; return to main()
-                    ; whatever value is in rax right now becomes the function's return value
+    mov rax, rcx    ; overwrite rax value with rcx
+    add rax, rdx    ; rax = rax + rdx
+    ret             ; rax is automatically the return value
 asm_add ENDP
 
 
@@ -173,12 +168,53 @@ asm_array_max ENDP
 ;
 
 
-asm_array_reverse PROC
+asm_array_min PROC
 
-    mov rax, 0
+    mov rax, [rcx]
+    mov rsi, 0
 
 loop_start:
-    ; todo
+    cmp rsi, rdx
+    jz finish
+
+    cmp [rcx + rsi*8], rax
+    jl less
+    inc rsi
+    jmp loop_start
+
+less:
+    mov rax, [rcx + rsi*8]
+    inc rsi
+    jmp loop_start
+
+finish:
+    ret
+
+asm_array_min ENDP
+
+
+;
+
+
+asm_array_reverse PROC
+
+    mov rsi, 0  ; front index
+    mov r9, rdx
+    dec r9      ; back index & len - 1
+
+loop_start:
+    cmp rsi, r9
+    jge finish          ; stop when front meets or passes back
+
+    mov r8, [rcx + rsi*8]      ; temp = arr[front]
+    mov rax, [rcx + r9*8]      ; rax = arr[back]
+    mov [rcx + rsi*8], rax     ; arr[front] = arr[back]
+    mov [rcx + r9*8], r8       ; arr[back] = temp
+
+    inc rsi
+    dec r9
+
+    jmp loop_start
 
 finish:
     ret

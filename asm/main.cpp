@@ -11,9 +11,11 @@ extern "C" long long asm_factorial(long long n);
 
 extern "C" long long asm_array_sum(long long array[], long long length);
 extern "C" long long asm_array_double(long long array[], long long length);
-extern "C" long long asm_array_max(long long array[], long long length);
 
-extern "C" ling ling asm_array_reverse(long long array[], long long length);
+extern "C" long long asm_array_max(long long array[], long long length);
+extern "C" long long asm_array_min(long long array[], long long length);
+
+extern "C" long long asm_array_reverse(long long array[], long long length);
 
 int main() {
         
@@ -33,6 +35,11 @@ int main() {
         std::cout << '\n';
 
         std::cout << asm_array_max(arr, (long long)sizeof(arr)/sizeof(arr[0])) << '\n';
+        std::cout << asm_array_min(arr, (long long)sizeof(arr) / sizeof(arr[0])) << '\n';
+
+        asm_array_reverse(arr, (long long)sizeof(arr) / sizeof(arr[0]));
+        for (long long x : arr) std::cout << x << ' ';
+        std::cout << '\n';
 
         std::cin.get();
         return 0;

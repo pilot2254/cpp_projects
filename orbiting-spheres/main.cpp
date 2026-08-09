@@ -43,14 +43,14 @@ int main() {
                         for (int x = 0; x < w; x++)
                                 screen[y][x] = ' ';
 
-                // orbit positions
+                // orbit pos
                 float x1 = cos(t) * 1.5f;
                 float y1 = sin(t) * 0.7f;
 
                 float x2 = cos(t + 3.14f) * 1.5f;
                 float y2 = sin(t + 3.14f) * 0.7f;
 
-                // back sphere first
+                // back sphere
                 drawSphere(screen, x2, y2, -1.0f, 1.0f);
                 // front sphere
                 drawSphere(screen, x1, y1, 1.0f, 1.0f);
