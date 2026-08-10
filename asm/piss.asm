@@ -288,6 +288,69 @@ asm_array_count_even ENDP
 ;
 
 
+asm_array_bubble_sort PROC
+
+; rcx arr
+; rdx len
+; rsi outer loop
+; r8 innter loop
+; r9 temp
+
+; bubble sort in C++:
+
+; void sort(int array[], int size){
+;         int temp;
+;         for(int i = 0; i < size - 1; i++)
+;         {
+;                 for(int j = 0; j < size - i - 1; j++)
+;                 {
+;                         if(array[j] > array[j + 1])
+;                         { 
+;                                 temp = array [j];
+;                                 array[j] = array[j + 1];
+;                                 array[j + 1] = temp;
+;                         }
+;                 }
+;         }
+; }
+
+    mov rax, 0
+    mov r8, 0
+    mov rsi, 0
+
+outer_loop:
+    cmp rsi, rdx
+    je finish
+    jmp inner_loop
+
+inner_loop:    
+    mov r9, [rcx + 8 * r8]
+    cmp r9, [rcx + 8 * r8 + 8]
+    jg swap
+    add r8, 1
+    cmp r8, rdx
+    je outer_pass_done
+    jmp inner_loop
+
+outer_pass_done:
+    inc rsi
+    mov r8, 0
+    jmp outer_loop
+
+swap:
+    mov r9, [rcx + 8 * r8]
+    mov rax, [rcx + 8 * r8 + 8]
+    mov [rcx + 8 * r8], rax
+    mov [rcx + 8 * r8 + 8], r9
+
+    add r8, 1
+    jmp inner_loop
+
+finish:
+    ret
+
+asm_array_bubble_sort ENDP
+
 END
 
 ; came back home from a long fucking vacation and i forgot everything. im sorry assembly, i still love you
