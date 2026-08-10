@@ -17,6 +17,10 @@ extern "C" long long asm_array_min(long long array[], long long length);
 
 extern "C" long long asm_array_reverse(long long array[], long long length);
 
+extern "C" long long asm_array_contains(long long array[], long long length, long long what);
+
+extern "C" long long asm_array_count_even(long long array[], long long length);
+
 int main() {
         
 
@@ -30,16 +34,23 @@ int main() {
         long long arr[] = {5, 2, 3, 4, 1};
         std::cout << asm_array_sum(arr, (long long)sizeof(arr)/sizeof(arr[0])) << '\n';
 
-        asm_array_double(arr, (long long)sizeof(arr)/sizeof(arr[0]));
+        asm_array_double(arr, (long long)sizeof(arr) / sizeof(arr[0]));
         for (long long x : arr) std::cout << x << ' ';
         std::cout << '\n';
 
         std::cout << asm_array_max(arr, (long long)sizeof(arr)/sizeof(arr[0])) << '\n';
-        std::cout << asm_array_min(arr, (long long)sizeof(arr) / sizeof(arr[0])) << '\n';
+        std::cout << asm_array_min(arr, (long long)sizeof(arr)/sizeof(arr[0])) << '\n';
 
         asm_array_reverse(arr, (long long)sizeof(arr) / sizeof(arr[0]));
         for (long long x : arr) std::cout << x << ' ';
         std::cout << '\n';
+
+        std::cout << "Contains: ";
+        std::string bContains = (asm_array_contains(arr, (long long)sizeof(arr)/sizeof(arr[0]), 10)) ? "YES\n" : "NO\n";
+        std::cout << bContains;
+
+        std::cout << "Even: ";
+        std::cout << asm_array_count_even(arr, (long long)sizeof(arr) / sizeof(arr[0]));
 
         std::cin.get();
         return 0;

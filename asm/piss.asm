@@ -1,6 +1,10 @@
 .code
 
 
+; more:
+; https://gist.github.com/dumpmycode/f541e9c43c7ab25e360a01bdde1f8548
+
+
 ;
 
 
@@ -220,6 +224,69 @@ finish:
     ret
 
 asm_array_reverse ENDP
+
+
+;
+
+
+asm_array_contains PROC
+
+    mov rax, 0
+    mov rsi, 0
+
+loop_start:
+    cmp rsi, rdx
+    jz finish
+
+    cmp r8, [rcx + rsi * 8]
+    je found
+    
+    inc rsi
+    jmp loop_start
+
+found:
+    mov rax, 1
+    jmp finish
+
+finish:
+    ret
+
+asm_array_contains ENDP
+
+
+;
+
+
+asm_array_count_even PROC
+
+    mov rax, 0
+    mov rsi, 0
+
+loop_start:
+    cmp rsi, rdx
+    jz finish
+
+    mov r9, [rcx + 8 * rsi]
+
+    test r9, 1
+    jz is_even
+
+    inc rsi
+    jmp loop_start
+
+is_even:
+    inc rax
+    inc rsi
+    jmp loop_start
+
+finish:
+    ret
+
+asm_array_count_even ENDP
+
+
+;
+
 
 END
 
