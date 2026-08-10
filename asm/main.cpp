@@ -19,6 +19,7 @@ extern "C" long long asm_array_bubble_sort(long long array[], long long length);
 
 // other
 extern "C" long long asm_strlen(const char* str);
+extern "C" long long asm_string_char_count(const char* str, long long target);
 
 int main() {
 
@@ -63,6 +64,7 @@ int main() {
         // other
 
         std::cout << "ASM Strlen: " << asm_strlen("hello world") << '\n';
+        std::cout << "ASM Char Count: " << asm_string_char_count("banana", 'a') << '\n';
 
         std::cout << "\nPress any key to exit";
 

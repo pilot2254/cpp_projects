@@ -374,6 +374,37 @@ finish:
 
 asm_strlen ENDP
 
+
+;
+
+
+asm_string_char_count PROC
+
+    mov rsi, 0
+    mov rax, 0
+
+loop_start:
+    movzx r8, byte ptr [rcx + rsi]
+
+    cmp r8, 0
+    je finish
+
+    cmp r8, rdx
+    je found
+
+    inc rsi
+    jmp loop_start
+
+found:
+    inc rax
+    inc rsi
+    jmp loop_start
+
+finish:
+    ret
+
+asm_string_char_count ENDP
+
 END
 
 ; came back home from a long fucking vacation and i forgot everything. im sorry assembly, i still love you
