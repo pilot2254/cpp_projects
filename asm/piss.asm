@@ -351,6 +351,29 @@ finish:
 
 asm_array_bubble_sort ENDP
 
+
+;
+
+
+asm_strlen PROC
+    ; rcx str
+    mov rsi, 0
+
+loop_start:
+    movzx rax, byte ptr [rcx + rsi] ; loads a single byte from memory into rax
+                                    ; zero-extending the rest (register is 8 bytes and char is 1 byte)
+    cmp rax, 0
+    jz  finish
+
+    inc rsi
+    jmp loop_start
+
+finish:
+    mov rax, rsi
+    ret
+
+asm_strlen ENDP
+
 END
 
 ; came back home from a long fucking vacation and i forgot everything. im sorry assembly, i still love you
