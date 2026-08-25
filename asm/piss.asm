@@ -1,12 +1,25 @@
+.data
+    hello_msg db "hello world", 0   ; db = "define byte", 0 - null terminator
+                                    ; string as raw bytes + null terminator
+
 .code
 
+asm_hello_world PROC
 
-; more:
-; https://gist.github.com/dumpmycode/f541e9c43c7ab25e360a01bdde1f8548
+    lea rax, hello_msg ; lea = load effective address, puts it into rax
+    ret
+
+    ; lea is like mov but loads an address instead of a value at that address,
+    ; similar to &hello_msg in c++ rather than hello_msg itself
+
+asm_hello_world ENDP
 
 
 ;
 
+
+; additional notes:
+; https://gist.github.com/dumpmycode/f541e9c43c7ab25e360a01bdde1f8548
 
 asm_add PROC
     ; assuming that our func call is `asm_add(5, 10);`
@@ -407,6 +420,82 @@ finish:
     ret
 
 asm_string_char_count ENDP
+
+
+;
+
+
+asm_string_reverse PROC
+
+    ; rax res
+    ; rcx str
+    ; rdx len
+    ; rsi str index
+    ; r8 temp
+
+    mov rax, rcx
+
+find_length:
+    movzx rax, byte ptr [rcx + rsi]
+    cmp rax, 0
+    jz  pre_loop
+
+    inc rsi
+    jmp find_length
+
+pre_loop:
+    xor rsi, rsi
+    jmp loop_start
+
+loop_start:
+
+swap:
+    movzx r8, byte ptr [rcx + rsi]
+    movzx 
+
+finish:
+    mov rax, rcx
+    ret
+
+asm_string_reverse ENDP
+
+
+;
+
+
+asm_fibonacci PROC
+
+    cmp rcx, 0
+    jne check_one
+    mov rax, 0
+    ret
+
+check_one:
+    cmp rcx, 1
+    jne compute
+    mov rax, 1
+    ret
+
+compute:
+    mov rax, 0
+    mov rdx, 1
+    mov r8, 1
+
+loop_start:
+    cmp r8, rcx
+    je  finish
+
+    mov r9, rax
+    mov rax, rdx
+    add rdx, r9
+
+    inc r8
+    jmp loop_start
+
+finish:
+    ret
+
+asm_fibonacci ENDP
 
 END
 
