@@ -38,7 +38,7 @@ int main() {
         std::cout << "ASM Max: " << asm_max(5, 10) << '\n';
         std::cout << "ASM Sum: " << asm_sum(5) << '\n';
         std::cout << "ASM Fac: " << asm_factorial(5) << '\n';
-        std::cout << "ASM Fib: " << asm_fibonacci(2) << '\n';
+        std::cout << "ASM Fib: " << asm_fibonacci(10) << '\n';
 
         // arrays
         long long arr[] = {1, 4, 2, 3, 5};

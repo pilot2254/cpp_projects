@@ -333,25 +333,25 @@ asm_array_bubble_sort PROC
 
 outer_loop:
     cmp rsi, rdx
-    je finish
+    je  finish
 
     mov r10, rdx
-    dec r10          ; r10 = len - 1, the real inner-loop limit
-    jmp inner_loop
-
-inner_loop:    
-    mov r9, [rcx + 8 * r8]
-    cmp r9, [rcx + 8 * r8 + 8]
-    jg swap
-    add r8, 1
-    cmp r8, r10
-    je outer_pass_done
+    dec r10              ; r10 = len - 1, real inner-loop limit
     jmp inner_loop
 
 outer_pass_done:
     inc rsi
     mov r8, 0
     jmp outer_loop
+
+inner_loop:
+    mov r9, [rcx + 8 * r8]
+    cmp r9, [rcx + 8 * r8 + 8]
+    jg  swap
+    add r8, 1
+    cmp r8, r10           ; was: cmp r8, rdx
+    je  outer_pass_done
+    jmp inner_loop
 
 swap:
     mov r9, [rcx + 8 * r8]
@@ -360,6 +360,8 @@ swap:
     mov [rcx + 8 * r8 + 8], r9
 
     add r8, 1
+    cmp r8, r10           ; also add this check here, same reason
+    je  outer_pass_done
     jmp inner_loop
 
 finish:
