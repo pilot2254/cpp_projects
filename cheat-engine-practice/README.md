@@ -1,1 +1,0 @@
-This C++ code is compiled into a .exe file, which i can then manipulate with cheat engine. I thought it would be a good idea to create something like this.
