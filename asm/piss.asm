@@ -427,36 +427,35 @@ asm_string_char_count ENDP
 
 asm_string_reverse PROC
 
-    ; rax res
-    ; rcx str
-    ; rdx len
-    ; rsi str index
-    ; r8 temp
+    mov rsi, 0
 
-    mov rax, rcx
+find_len:
+    cmp byte ptr [rcx + rsi], 0
+    je  len_found
+    inc rsi
+    jmp find_len
 
-find_length:
-    movzx rax, byte ptr [rcx + rsi]
-    cmp rax, 0
-    jz  pre_loop
+len_found:
+    mov r9, rsi
+    dec r9
+    mov rsi, 0
+
+swap_loop:
+    cmp rsi, r9
+    jge finish
+
+    mov r8b, [rcx + rsi]
+    mov al, [rcx + r9]
+    mov [rcx + rsi], al
+    mov [rcx + r9], r8b
 
     inc rsi
-    jmp find_length
-
-pre_loop:
-    xor rsi, rsi
-    jmp loop_start
-
-loop_start:
-
-swap:
-    movzx r8, byte ptr [rcx + rsi]
-    movzx 
+    dec r9
+    jmp swap_loop
 
 finish:
     mov rax, rcx
     ret
-
 asm_string_reverse ENDP
 
 
